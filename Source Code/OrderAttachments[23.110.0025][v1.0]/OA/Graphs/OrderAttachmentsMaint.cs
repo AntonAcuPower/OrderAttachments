@@ -25,6 +25,7 @@ namespace OrderAttachments
         {
             return true;
         }
+
         #region Views
         public SelectFrom<OrderAttachment>.View UploadedFiles;
 
@@ -44,7 +45,7 @@ namespace OrderAttachments
         #endregion
 
         #region Public
-        public string GetHtml()
+        public string GetHtml(string url)
         {
             var doc = new XmlDocument();
             var bodyNode = doc.CreateElement("body");
@@ -66,7 +67,7 @@ namespace OrderAttachments
                 var aNode = doc.CreateElement("a");
                 aNode.InnerText = orderAttachment.FileName.ToString();
                 var hrefAttribute = doc.CreateAttribute("href");
-                hrefAttribute.Value = $"/Api/DownloadFile.aspx?fileID={orderAttachment.FileID}&fileName={orderAttachment.FileName}";
+                hrefAttribute.Value = $"{url}/DownloadFile.aspx?fileID={orderAttachment.FileID}&fileName={orderAttachment.FileName}";
                 aNode.Attributes.Append(hrefAttribute);
                 tdNode3.AppendChild(aNode);
                 trNode.AppendChild(tdNode3);
